@@ -186,7 +186,7 @@
       document.addEventListener("DOMContentLoaded", () => {
         async function fetchAndDisplayCities() {
           try {
-            const response = await fetch("http://localhost:3000/cities");
+            const response = await fetch("http://localhost:8000/cities");
             const cities = await response.json();
 
             const rightColumnTableBody =
@@ -226,7 +226,7 @@
 
         async function updateCityPrice(cityName, newPrice) {
           try {
-            await fetch("http://localhost:3000/cities/update", {
+            await fetch("http://localhost:8000/cities/update", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
