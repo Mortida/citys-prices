@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="icon" href="/public/images/group.svg" type="image/x-icon" />
+
+    <title>City Prices</title>
+  </head>
+
+  <body>
+    <nav
+      class="navbar w-full max-w-6xl mt-5 mx-auto py-12 py-3 bg-teal-500 flex text-white justify-between"
+    >
+      <a href="#" class="logo"
+        ><img src="/images/group.svg" class="logo" alt=""
+      /></a>
+      <div class="title text-center">
+        <h1 class="text-4xl">اللورد للحوالات المالية</h1>
+        <h2 class="text-xl">نشرة أسعار الباوند مقابل الليرة السورية</h2>
+      </div>
+      <a href="#" class="logo"><img src="/images/Logo.svg" alt="" /></a>
+    </nav>
+
+    <div class="header w-full max-w-6xl mx-auto p-3 border">
+      <div class="text-center text-xl">
+        <h1 class="text-3xl">شركات جميع المحافظات</h1>
+        <h2>
+          (للعلم شركات الفؤاد الفاضل + المتحدة + الهرم سيستم واحد و يستطيع
+          الزبون الاستلام من أي فرع من هذه الشركات)
+        </h2>
+      </div>
+      <h1></h1>
+    </div>
+
+    <div
+      class="w-full max-w-6xl mx-auto text-center text-xl text-white p-3 border bg-teal-600"
+    >
+      <h1 class="text-3xl">
+        تسليم ليرة سورية يد خلال 7/48 ساعة حصراً زبون مكفول من قبلكم
+      </h1>
+      <h2 class="text-rose-600 text-2xl">حصراً زبون مكفول</h2>
+      <h2>القنيطرة يوجد اجور داخلية 1500 ليرة لكل 100 الف سوري</h2>
+    </div>
+
+    <div class="border w-full max-w-6xl mx-auto bg-teal-500 text-white">
+      <div class="flex p-3 border justify-between pl-10">
+        <h2 class="ml-12">12,935</h2>
+        <h2>تسليم يد مبالغ من 300 الف حتى 500 الف في الجهات المبينة أدناه</h2>
+      </div>
+      <div class="flex flex p-3 border justify-between pl-10 text-justify">
+        <h2 class="ml-12">15,130</h2>
+        <h2 class="">
+          ( اشعارات شركات داخلية جميع المحافظات فوق 500 ألف - اشعار ضمن 48 ساعة)
+        </h2>
+      </div>
+    </div>
+
+    <div class="w-full max-w-6xl mx-auto pb-12 table-container text-xl">
+      <div class="">
+        <div class="border-r-2 border-gray-100" id="cityTableBodyRight">
+          <!-- Right column rows will be added here dynamically -->
+        </div>
+      </div>
+
+      <div class="min-w-full bg-white">
+        <div class="border-r-2 border-gray-100" id="cityTableBodyLeft">
+          <!-- Left column rows will be added here dynamically -->
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        async function fetchAndDisplayCities() {
+          try {
+            const response = await fetch("http://localhost:8000/cities");
+            const cities = await response.json();
+
+            const rightColumnTableBody =
+              document.getElementById("cityTableBodyRight");
+            const leftColumnTableBody =
+              document.getElementById("cityTableBodyLeft");
+
+            rightColumnTableBody.innerHTML = "";
+            leftColumnTableBody.innerHTML = "";
+
+            cities.forEach((city, index) => {
+              const row = document.createElement("ul");
+              if (index < 16) {
+                row.classList.add("right-row");
+              } else {
+                row.classList.add("left-row");
+              }
+
+              row.innerHTML = `
+              <li class='thead-td'><input type="number" data-city="${city.name}" class="price-input"></li>
+              <li class='price-td'>${city.price}</li>
+              <li class='city-td'>${city.name}</li>
+              `;
+
+              if (index < 15) {
+                rightColumnTableBody.appendChild(row); // Add rows to the right column
+              } else {
+                leftColumnTableBody.appendChild(row); // Add rows to the left column
+              }
+            });
+          } catch (error) {
+            console.error("Error fetching cities:", error);
+          }
+        }
+
+        fetchAndDisplayCities(); // Fetch and display cities when the DOM is fully loaded
+
+        async function updateCityPrice(cityName, newPrice) {
+          try {
+            await fetch("http://localhost:8000/cities/update", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ cityName, newPrice }),
+            });
+            fetchAndDisplayCities(); // Fetch cities again after updating to refresh the table
+          } catch (error) {
+            console.error("Error updating city price:", error);
+          }
+        }
+
+        document.addEventListener("change", (event) => {
+          if (event.target.classList.contains("price-input")) {
+            const cityName = event.target.dataset.city;
+            const newPrice = parseInt(event.target.value);
+            if (!isNaN(newPrice)) {
+              updateCityPrice(cityName, newPrice);
+            } else {
+              alert("Please enter a valid price.");
+              fetchAndDisplayCities(); // Reset the input field to the original value
+            }
+          }
+        });
+      });
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </body>
+</html>
