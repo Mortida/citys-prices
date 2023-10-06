@@ -112,6 +112,14 @@ body {
     background-position: center center;
   }
 
+  .whatsapp {
+      width: 25px;
+  }
+
+  .whats-img{
+      justify-content: center;
+  }
+
   .logo > img{
     width: 100px;
   }
