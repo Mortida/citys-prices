@@ -142,6 +142,17 @@
           }
         });
       });
+
+            var tableContainer = document.querySelector(".table-container");
+
+      window.addEventListener("resize", function (event) {
+        if (window.innerWidth < 730) {
+          tableContainer.classList.remove("table-container");
+        } else {
+          tableContainer.classList.add("table-container");
+        }
+      });
+
     </script>
     <script src="https://cdn.tailwindcss.com"></script>
   </body>
