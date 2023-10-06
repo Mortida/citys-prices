@@ -4,8 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js"
+    "start": "node app.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
@@ -13,7 +12,6 @@
     "ejs": "^3.1.9",
     "express": "^4.18.2",
     "mongodb": "^6.1.0",
-    "mongoose": "^7.5.4",
-    "nodemon": "^3.0.1"
+    "mongoose": "^7.5.4"
   }
 }
