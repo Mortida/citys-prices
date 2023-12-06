@@ -8,8 +8,8 @@ const citySchema = new mongoose.Schema({
 
 // Schema for the Header model (assuming a different schema)
 const headerSchema = new mongoose.Schema({
-  title: String,
-  description: String,
+  name: { type: String },
+  price: Number,
 });
 
 // Model for the City collection
