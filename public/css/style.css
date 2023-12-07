@@ -2,6 +2,40 @@ body {
     padding: 0 30px;
 }
 
+
+/* Style for the header container */
+/* /////////////////////////////////// */
+#headerContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 15px;
+}
+
+.header-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 5px;
+}
+
+.header-price {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.header-name {
+  font-size: 14px;
+  text-align: center;
+}
+
+.header-price-input {
+  width: 70px;
+}
+
+/* Style for the header container */
+/* /////////////////////////////////// */
+
 .bg-gray-100 {
     background-color: #f7fafc;
   }
