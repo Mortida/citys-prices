@@ -101,7 +101,7 @@
 
               row.innerHTML = `
               <li class='thead-td'><input type="number" data-city="${city.name}" class="price-input"></li>
-              <li class='price-td'>£${city.price}</li>
+              <li class='price-td'>${city.price}</li>
               <li class='city-td'>${city.name}</li>
               `;
 
@@ -166,7 +166,7 @@
               // Customize the HTML structure based on your header data structure
               row.innerHTML = `
               <input type="number" data-header="${header.name}" class="header-price-input">
-          <div class="header-price">£${header.price}</div>
+          <div class="header-price">${header.price}</div>
           <div class="header-name">${header.name}</div>
         `;
 
